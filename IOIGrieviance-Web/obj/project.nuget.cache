@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZqBtqrsASrnXZ+HgzV3OKNbS8QvxGuNh300YEYzj5uOEexI7nrf1deGZIj9hweOHHckpgc+pM/gt8M4/U2u5Ow==",
+  "success": true,
+  "projectFilePath": "C:\\WCS\\Project\\GRIEVANCES\\GIT\\WEB\\IOIGrieviance-Web\\IOIGrieviance-Web\\IOIGrieviance-Web.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\serilog\\2.10.0\\serilog.2.10.0.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.22\\microsoft.netcore.app.host.win-x64.3.1.22.nupkg.sha512"
+  ],
+  "logs": []
+}

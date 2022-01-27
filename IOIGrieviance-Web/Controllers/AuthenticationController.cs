@@ -54,6 +54,7 @@ namespace IOIGrieviance_Web.Controllers
                     //HttpContext.Session.SetString(AppConstants.RoleID, usr.code_role.ToString());
                     HttpContext.Session.SetString(AppConstants.Fullname, (string.IsNullOrEmpty(usr.firstname) ? "" : usr.firstname) + " - " + (string.IsNullOrEmpty(usr.lastname) ? "" : usr.lastname));
                     HttpContext.Session.SetString(AppConstants.Language, lan);
+                    HttpContext.Session.SetString(AppConstants.LocationID, usr.code_location);
                     HttpContext.Session.SetString(AppConstants.UserType, string.IsNullOrEmpty(usr.user_account_type_name) ? "" : usr.user_account_type_name);
                     HttpContext.Session.SetString(AppConstants.ImageAvatar, string.IsNullOrEmpty(usr.image) ? "" : usr.image);
                     HttpContext.Session.SetString(AppConstants.UserTypeStatic, usr.id_static_user_account_type);

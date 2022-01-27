@@ -367,7 +367,7 @@ var KTProjectUsers = function () {
             $("#btn-reject").addClass("d-none");
             $("#lbl-notes").removeClass("required");
             $('#btn-approve').css('display', 'none');
-            $('#btn-reject').css('display', 'none');
+            //$('#btn-reject').css('display', 'none');
             //document.getElementById('id_recipient').removeAttribute('name');
             //document.getElementById('notes').removeAttribute('name');
             //$('#notes').rules('add', {
@@ -1012,13 +1012,20 @@ function btnViewAction(e, action) {
                 $("#lbl-notes").addClass("required");
 
                 if ($('#hdn_user_static').val() == '2' && (result.data.id_status == '1' || result.data.id_status == '4')) {
-                    $('#btn-approve').css('display', 'none');
-                    $('#btn-reject').css('display', 'block');
+                    //.addClass("d-none");
+                    //$('#btn-approve').css('display', 'none');
+                    //$('#btn-reject').css('display', 'block');
+
+                    $('#btn-approve').addClass("d-none");
+                    $('#btn-reject').removeClass("d-none");
+
                 }
 
                 if ($('#hdn_user_static').val() == '2' && result.data.status_id == '5') {
-                    $('#btn-approve').css('display', 'block');
-                    $('#btn-reject').css('display', 'none');
+                    //$('#btn-approve').css('display', 'block');
+                    //$('#btn-reject').css('display', 'none');
+                    $('#btn-approve').removeClass("d-none");
+                    $('#btn-reject').addClass("d-none");
                 }
             }
 
@@ -1034,6 +1041,9 @@ function btnViewAction(e, action) {
             const ul = document.getElementById('ul');
             let li = document.createElement('li'), audio = document.createElement('audio');
             audio.controls = true;
+            if (!result.data.createTransDSTTDto.includes('base64')) {
+                result.data.createTransDSTTDto = "data:audio/wav; base64," + result.data.createTransDSTTDto;
+            }
             audio.src = result.data.createTransDSTTDto;
             li.appendChild(audio);
             ul.appendChild(li);

@@ -50,32 +50,7 @@ namespace IOIGrieviance_Web.Controllers
             try
             {
                 string userId = HttpContext.Session.GetString(AppConstants.Email);
-                response = await _client.GetApiResponse<List<TransactionHeader>>($"{url}/api/TReport/lan-en");
-                //List<TransactionHeader> list_location = new List<TransactionHeader>();
-                //list_location.Add(new TransactionHeader
-                //{
-                //    id = 1,
-                //    code = "T001001",
-                //    id_location = 1,
-                //    id_bussiness = 1,
-                //    location = "Indonesia",
-                //    bussiness = "Finance",
-                //    id_report_type = "Fraud",
-                //    created_by = 1,
-                //    updated_by = 1,
-                //    deleted_by = 1,
-                //    created_date = DateTime.Parse("2022-01-01"),
-                //    updated_date = DateTime.Parse("2022-01-01"),
-                //    deleted_date = null,
-                //    is_deleted = false,
-                //    latest_status = "On Progress",
-                //    fraud_report_note = "",
-                //    voice_note = "",
-                //    justification_req = "",
-                //    justification_res = "",
-                //    feedback_sender_note = "",
-                //    processing_time = "10 Hour(s)"
-                //});
+                response = await _client.GetApiResponse<List<TransactionHeader>>($"{url}/api/TReport/lan-en/code_location={HttpContext.Session.GetString(AppConstants.LocationID)}");
                 response.Data = response.Data;
                 msg = response.Message;
                 sts = response.StatusCode;
@@ -98,7 +73,7 @@ namespace IOIGrieviance_Web.Controllers
         public async Task<ActionResult> GetAllRecipient()
         {
             var response = new ApiResponse();
-            response = await _client.GetApiResponse<List<ViewSelectDataLocation>>($"{url}/api/MUserAccount/recipient/lan-en");
+            response = await _client.GetApiResponse<List<ViewSelectDataLocation>>($"{url}/api/MUserAccount/recipient/lan-en/code_location={HttpContext.Session.GetString(AppConstants.LocationID)}");
             return Json(new { data = response.Data });
         }
 

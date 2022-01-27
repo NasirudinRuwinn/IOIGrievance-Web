@@ -43,7 +43,7 @@ namespace IOIGrieviance_Web.Controllers
             try
             {
                 string userId = HttpContext.Session.GetString(AppConstants.NIK);
-                response = await _client.GetApiResponse<List<MasterRoleModel>>($"{url}/api/MUserAccountType/lan-en");
+                response = await _client.GetApiResponse<List<MasterUserTypeModel>>($"{url}/api/MUserAccountType/lan-en");
 
                 response.Data = response.Data;
                 msg = response.Message;

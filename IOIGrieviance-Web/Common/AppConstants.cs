@@ -12,6 +12,7 @@ namespace IOIGrieviance_Web.Common
         public const string Email = "Email";
         public const string Fullname = "Fullname";
         public const string RoleID = "RoleID";
+        public const string LocationID = "LocationID";
         public const string Language = "Language";
         public const string UserType = "UserType";
         public const string ImageAvatar = "ImageAvatar";

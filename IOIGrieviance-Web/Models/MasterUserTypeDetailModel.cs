@@ -8,6 +8,7 @@ namespace IOIGrieviance_Web.Models
     public class MasterUserTypeDetailModel
     {
         public string code { get; set; }
+        public string code_location { get; set; }
         public string name_bd { get; set; }
         public string desc_bd { get; set; }
         public string name_en { get; set; }

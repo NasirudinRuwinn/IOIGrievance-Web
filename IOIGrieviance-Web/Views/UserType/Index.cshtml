@@ -143,6 +143,19 @@
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
+                                            <div class="fv-row mb-7 fv-plugins-icon-container col-md-7">
+                                                <!--begin::Label-->
+                                                <label class="required form-label fw-bolder fs-6 text-gray-700">Location</label>
+                                                <!--end::Label-->
+                                                <!--begin::Select-->
+                                                <select name="code_location" id="code_location" aria-label="Select a Location" data-control="select2" data-placeholder="Select Location" class="form-select form-select-solid" tabindex="-1" data-dropdown-parent="#kt_modal_add_user_type">
+                                                    <option></option>
+                                                </select>
+                                                <!--end::Select-->
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
                                                 <label class="required fw-bold fs-6 mb-2">Name Bangladesh</label>
@@ -365,7 +378,7 @@
                                         </th>*@
                                     <th tabindex="0" aria-controls="kt_table_trx_header" width="30">No</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="code_header" headers="" class="">User Type Code</th>
-                                    @*<th tabindex="0" aria-controls="kt_table_trx_header" id="id_static_type_name" headers="" aria-sort="ascending" aria-label="status" class="min-w-125px">User Type</th>*@
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="location_name" headers="" aria-sort="ascending" aria-label="status" class="min-w-125px">Location Name</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="name" headers="" aria-sort="ascending" aria-label="bussiness" class="min-w-125px">User Type Name</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="desc" headers="" aria-sort="ascending" aria-label="status" class="min-w-125px">User Type Desc</th>
                                     <th class="min-w-100px sorting_disabled" aria-label="Actions">Actions</th>

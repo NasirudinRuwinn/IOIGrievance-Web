@@ -39,7 +39,7 @@ var KTProjectUsers = function () {
                         //},
                         { "data": null, "targets": 0 },
                         { "data": "code_header" },
-                        //{ "data": "id_static_type_name" },
+                        { "data": "location_name" },
                         { "data": "name" },
                         { "data": "desc" },
                         {
@@ -245,9 +245,38 @@ var KTProjectUsers = function () {
             }
         });
 
+        //ddl
+        $('#code_location').select2({
+            ajax: {
+                url: "/Transaction/GetDDLLocation",
+                dataType: 'json',
+                processResults: function (data) {
+                    var results = [];
+                    $.each(data, function (index, account) {
+                        $.each(account, function (i, val) {
+                            results.push({
+                                id: val.Value,
+                                text: val.Text
+                            });
+                        });
+                    });
+
+                    return {
+                        results: results
+                    };
+                }
+            }
+        });
+        // end ddl
+
         $(form.querySelector('[name="id_static_type"]')).on('change', function () {
             // Revalidate the field when an option is chosen
             validator.revalidateField('id_static_type');
+        });
+
+        $(form.querySelector('[name="code_location"]')).on('change', function () {
+            // Revalidate the field when an option is chosen
+            validator.revalidateField('code_location');
         });
 
         // Define form element
@@ -262,6 +291,13 @@ var KTProjectUsers = function () {
                         validators: {
                             notEmpty: {
                                 message: 'User Type is required'
+                            }
+                        }
+                    },
+                    'code_location': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Location input is required'
                             }
                         }
                     },
@@ -407,6 +443,7 @@ var KTProjectUsers = function () {
 
         object['code_header'] = $('#code_header').val();
         object['id_static_type'] = $('#id_static_type').val();
+        object['code_location'] = $('#code_location').val();
         //end property collection data
 
         //Start call ajax
@@ -505,6 +542,9 @@ function btnViewAction(e, action) {
                 document.querySelector('[name="desc_phi"]').value = result.data.desc_phi;
 
                 $('#code_header').val(result.data.code_header);
+                //ddl role
+                var newOptionLoc = $("<option selected='selected'></option>").val(result.data.code_location).text(result.data.location_name);
+                $("#code_location").append(newOptionLoc).trigger('change');
               
                 if (action === 'view') {
                     $("#kt_modal_add_user_type_form *").prop('disabled', true);

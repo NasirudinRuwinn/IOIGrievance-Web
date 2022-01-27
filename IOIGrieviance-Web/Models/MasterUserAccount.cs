@@ -9,6 +9,7 @@ namespace IOIGrieviance_Web.Models
         public string id_app_user { get; set; }
         public string code_employee { get; set; }
         public string code_role { get; set; }
+        public string code_location { get; set; }
         public string code_company { get; set; }
         public string code_user_account_type { get; set; }
         public string id_device { get; set; }

@@ -47,7 +47,7 @@ namespace IOIGrieviance_Web.Controllers
             var response = new ApiResponse();
             try
             {
-                response = await _client.GetApiResponse<List<MasterUserAccount>>($"{url}/api/MUserAccount");
+                response = await _client.GetApiResponse<List<MasterUserAccount>>($"{url}/api/MUserAccount/lan-en");
 
                 msg = response.Message;
                 sts = response.StatusCode;

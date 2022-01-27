@@ -52,7 +52,7 @@ var KTProjectUsers = function () {
                         { "data": "email" },
                         { "data": "mobile_phone" },
                         { "data": "user_account_type_name" },
-                        { "data": "company_name" },
+                        //{ "data": "company_name" },
                         {
                             data: null,
                             className: "d-flex justify-content-end flex-shrink-0",
@@ -98,10 +98,10 @@ var KTProjectUsers = function () {
                 });
 
                 t.on('draw', function () {
-                    initToggleToolbar();
-                    handleDeleteRows();
-                    toggleToolbars();
-                    initSelectAllData();
+                    //initToggleToolbar();
+                    //handleDeleteRows();
+                    //toggleToolbars();
+                    //initSelectAllData();
                 }).on('order.dt search.dt', function () {
                     t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                         cell.innerHTML = i + 1;

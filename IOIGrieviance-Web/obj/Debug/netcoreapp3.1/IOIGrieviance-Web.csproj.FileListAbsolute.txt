@@ -221,6 +221,7 @@ C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\bin\Debu
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.csprojAssemblyReference.cache
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\staticwebassets\IOIGrieviance-Web.StaticWebAssets.Manifest.cache
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\staticwebassets\IOIGrieviance-Web.StaticWebAssets.xml
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.MvcApplicationPartsAssemblyInfo.cache
@@ -241,6 +242,7 @@ C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debu
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\ForgotPassword\ResetPassword.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\ForgotPassword\UnAuthorized.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index_.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Index.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Location\Index.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Page1\Index.cshtml.g.cs
@@ -250,6 +252,8 @@ C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debu
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout - Copy.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index - Copy.cshtml.g.cs
+C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\UserAccount\Index - Copy.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\UserAccount\Index.cshtml.g.cs
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\UserType\Index.cshtml.g.cs
@@ -261,7 +265,3 @@ C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debu
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.csproj.CopyComplete
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.dll
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.pdb
-C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index - Copy.cshtml.g.cs
-C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index - Copy.cshtml.g.cs
-C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index.cshtml.g.cs
-C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.csprojAssemblyReference.cache

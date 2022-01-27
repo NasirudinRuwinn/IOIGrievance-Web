@@ -9,6 +9,8 @@ namespace IOIGrieviance_Web.Models
     {
         public string id { get; set; }
         public string code_header { get; set; }
+        public string code_location { get; set; }
+        public string location_name { get; set; }
         public string name { get; set; }
         public string desc { get; set; }
         public int id_static_type { get; set; }
@@ -27,6 +29,7 @@ namespace IOIGrieviance_Web.Models
         
         public int id_static_type { get; set; }
         public string created_by { get; set; }
+        public string code_location { get; set; }
         public MasterUserTypeDetailModel creadMasterUserAccountTypeDto { get; set; }
     }
 
@@ -35,6 +38,7 @@ namespace IOIGrieviance_Web.Models
 
         public string code { get; set; }
         public string updated_by { get; set; }
+        //public string code_location { get; set; }
         public MasterUserTypeDetailModel updateMasterUserAccountTypeDto { get; set; }
     }
 }

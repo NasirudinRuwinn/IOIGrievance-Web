@@ -20,5 +20,6 @@ namespace IOIGrieviance_Web.Models
         public string _FullName { get; set; }
         public string _Email { get; set; }
         public string _id_static_user_type { get; set; }
+        public string _locationName { get; set; }
     }
 }

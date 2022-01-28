@@ -34,8 +34,9 @@ namespace IOIGrieviance_Web.Models
         //not mapped
         public string user_account_type_name { get; set; }
         public string role_name { get; set; }
-        public string id_static_user_account_type { get; set; }
+        public int id_static_user_account_type { get; set; }
         public string company_name { get; set; }
+        public string location_name { get; set; }
     }
 
     public class MasterUserAccountCreateDTO
@@ -45,7 +46,9 @@ namespace IOIGrieviance_Web.Models
         public string id_app_user { get; set; }
         public string code_employee { get; set; }
         public string code_role { get; set; }
+        public string code_location { get; set; }
         public string code_user_account_type { get; set; }
+        public int id_static_user_account_type { get; set; }
         public string id_device { get; set; }
         public string token { get; set; }
         public string firstname { get; set; }
@@ -69,7 +72,9 @@ namespace IOIGrieviance_Web.Models
         public int? updated_by { get; set; }
         public string code_employee { get; set; }
         public string code_role { get; set; }
+        public string code_location { get; set; }
         public string code_user_account_type { get; set; }
+        public int id_static_user_account_type { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string email { get; set; }

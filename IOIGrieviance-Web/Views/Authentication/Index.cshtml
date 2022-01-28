@@ -70,7 +70,7 @@
                                 <label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
                                 <!--end::Label-->
                                 <!--begin::Link-->
-                                <a href="" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
+                                <a href="@Url.Action("Index", "ForgotPassword")" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
                                 <!--end::Link-->
                             </div>
                             <!--end::Wrapper-->
@@ -100,18 +100,18 @@
                 <!--end::Wrapper-->
             </div>
 
-            <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10 col-md-3">
-                <select class="form-select" placeholder="Select an option" id="kt_docs_select2_country">
-                    <option value="en" data-kt-select2-country="flags/united-kingdom.svg">English</option>
-                    <option value="ur" data-kt-select2-country="flags/pakistan.svg">Pakistan</option>
-                    <option value="ms" data-kt-select2-country="flags/malaysia.svg">Malaysia</option>
-                    <option value="bd" data-kt-select2-country="flags/bangladesh.svg">Bangladesh</option>
-                    <option value="hi" data-kt-select2-country="flags/india.svg">India</option>
-                    <option value="nep" data-kt-select2-country="flags/nepal.svg">Nepal</option>
-                    <option value="mm" data-kt-select2-country="flags/myanmar.svg">Myanmar</option>
-                    <option value="phi" data-kt-select2-country="flags/philippines.svg">Philippines</option>
-                </select>
-            </div>
+            @*<div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10 col-md-3">
+                    <select class="form-select" placeholder="Select an option" id="kt_docs_select2_country">
+                        <option value="en" data-kt-select2-country="flags/united-kingdom.svg">English</option>
+                        <option value="ur" data-kt-select2-country="flags/pakistan.svg">Pakistan</option>
+                        <option value="ms" data-kt-select2-country="flags/malaysia.svg">Malaysia</option>
+                        <option value="bd" data-kt-select2-country="flags/bangladesh.svg">Bangladesh</option>
+                        <option value="hi" data-kt-select2-country="flags/india.svg">India</option>
+                        <option value="nep" data-kt-select2-country="flags/nepal.svg">Nepal</option>
+                        <option value="mm" data-kt-select2-country="flags/myanmar.svg">Myanmar</option>
+                        <option value="phi" data-kt-select2-country="flags/philippines.svg">Philippines</option>
+                    </select>
+                </div>*@
             <!--end::Content-->
             <!--begin::Footer-->
             <!--end::Footer-->

@@ -51,6 +51,7 @@ var KTProjectUsers = function () {
                         { "data": "username" },
                         { "data": "email" },
                         { "data": "mobile_phone" },
+                        { "data": "location_name" },
                         { "data": "user_account_type_name" },
                         //{ "data": "company_name" },
                         {
@@ -170,14 +171,14 @@ var KTProjectUsers = function () {
                             }
                         }
                     },
-                    'code_role': {
+                    'code_location': {
                         validators: {
                             notEmpty: {
-                                message: 'Role is required'
+                                message: 'Location is required'
                             }
                         }
                     },
-                    'code_user_account_type': {
+                    'id_static_user_account_type': {
                         validators: {
                             notEmpty: {
                                 message: 'User Type is required'
@@ -361,9 +362,9 @@ var KTProjectUsers = function () {
         });
 
         //ddl role
-        $('#code_role').select2({
+        $('#code_location').select2({
             ajax: {
-                url: "/UserAccount/GetDDLLRole",
+                url: "/Transaction/GetDDLLocation",
                 dataType: 'json',
                 processResults: function (data) {
                     var results = [];
@@ -384,9 +385,9 @@ var KTProjectUsers = function () {
         });
 
         //ddl userType
-        $('#code_user_account_type').select2({
+        $('#id_static_user_account_type').select2({
             ajax: {
-                url: "/UserAccount/GetDDLLUserType",
+                url: "/Transaction/GetUserStaticType",
                 dataType: 'json',
                 processResults: function (data) {
                     var results = [];
@@ -609,8 +610,8 @@ var KTProjectUsers = function () {
         object.image = imageValue;
         object['code'] = $('#code').val();
         object['id'] = $('#id').val();
-        object['code_role'] = $('#code_role').val();
-        object['code_user_account_type'] = $('#code_user_account_type').val();
+        object['code_location'] = $('#code_location').val();
+        object['id_static_user_account_type'] = $('#id_static_user_account_type').val();
 
         $.ajax({
             url: "UserAccount/Create",
@@ -690,12 +691,13 @@ function btnViewAction(e, action) {
                 $('#id').val(result.data.id);
                 $('#code').val(result.data.code);
                 //ddl role
-                var newOptionRole = $("<option selected='selected'></option>").val(result.data.code_role).text(result.data.role_name);
-                $("#code_role").append(newOptionRole).trigger('change');
+                var newOptionRole = $("<option selected='selected'></option>").val(result.data.code_location).text(result.data.location_name);
+                $("#code_location").append(newOptionRole).trigger('change');
 
                 //ddl userType
-                var newOptionUType = $("<option selected='selected'></option>").val(result.data.code_user_account_type).text(result.data.user_account_type_name);
-                $("#code_user_account_type").append(newOptionUType).trigger('change');
+                var newOptionUType = $("<option selected='selected'></option>").val(result.data.id_static_user_account_type).text(result.data.user_account_type_name);
+                $("#id_static_user_account_type").append(newOptionUType).trigger('change');
+
                 $('#div-password').css('display', 'none');
                 $('#div-password-confirm').css('display', 'none');
                 $("#username").prop('disabled', true);

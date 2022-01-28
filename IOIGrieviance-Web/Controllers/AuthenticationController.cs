@@ -53,12 +53,13 @@ namespace IOIGrieviance_Web.Controllers
                     HttpContext.Session.SetString(AppConstants.Email, string.IsNullOrEmpty(usr.email) ? "" : usr.email);
                     //HttpContext.Session.SetString(AppConstants.RoleID, usr.code_role.ToString());
                     HttpContext.Session.SetString(AppConstants.Fullname, (string.IsNullOrEmpty(usr.firstname) ? "" : usr.firstname) + " - " + (string.IsNullOrEmpty(usr.lastname) ? "" : usr.lastname));
-                    HttpContext.Session.SetString(AppConstants.Language, lan);
-                    HttpContext.Session.SetString(AppConstants.LocationID, usr.code_location);
+                    //HttpContext.Session.SetString(AppConstants.Language, lan);
+                    HttpContext.Session.SetString(AppConstants.LocationID, string.IsNullOrEmpty(usr.code_location) ? "" : usr.code_location);
+                    HttpContext.Session.SetString(AppConstants.LocationName, string.IsNullOrEmpty(usr.location_name) ? "" : usr.location_name);
                     HttpContext.Session.SetString(AppConstants.UserType, string.IsNullOrEmpty(usr.user_account_type_name) ? "" : usr.user_account_type_name);
-                    HttpContext.Session.SetString(AppConstants.ImageAvatar, string.IsNullOrEmpty(usr.image) ? "" : usr.image);
-                    HttpContext.Session.SetString(AppConstants.UserTypeStatic, usr.id_static_user_account_type);
-                    HttpContext.Session.SetString(AppConstants.UserTypeStaticName, usr.id_static_user_account_type == "1" ? "Administrator" : usr.id_static_user_account_type == "2" ? "HQ Dispatcher" : usr.id_static_user_account_type == "3" ? "Justificator" : "Reporter");
+                    HttpContext.Session.SetString(AppConstants.ImageAvatar, string.IsNullOrEmpty(usr.image) ? "~/assets/media/avatars/blank.png" : usr.image);
+                    HttpContext.Session.SetString(AppConstants.UserTypeStatic, string.IsNullOrEmpty(usr.id_static_user_account_type.ToString()) ? "" : usr.id_static_user_account_type.ToString());
+                    HttpContext.Session.SetString(AppConstants.UserTypeStaticName, usr.id_static_user_account_type.ToString() == "1" ? "Administrator" : usr.id_static_user_account_type.ToString() == "2" ? "HQ Dispatcher" : usr.id_static_user_account_type.ToString() == "3" ? "Justificator" : "Reporter");
                 }
             }
             catch (Exception e)
@@ -76,7 +77,7 @@ namespace IOIGrieviance_Web.Controllers
             Response.Redirect("/Authentication/index");
         }
 
-        public IActionResult UnAuthorized()
+        public IActionResult AccessDenied()
         {
             return View();
         }

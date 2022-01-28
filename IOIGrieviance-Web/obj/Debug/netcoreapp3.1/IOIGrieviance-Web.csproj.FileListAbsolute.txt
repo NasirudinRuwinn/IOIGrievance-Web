@@ -265,3 +265,4 @@ C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debu
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.csproj.CopyComplete
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.dll
 C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\IOIGrieviance-Web.pdb
+C:\WCS\Project\GRIEVANCES\GIT\NS GIT\IOIGrievance-Web\IOIGrieviance-Web\obj\Debug\netcoreapp3.1\Razor\Views\Authentication\AccessDenied.cshtml.g.cs

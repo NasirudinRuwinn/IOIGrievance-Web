@@ -32,6 +32,10 @@ namespace IOIGrieviance_Web.Controllers
             model._FullName = HttpContext.Session.GetString(AppConstants.Fullname);
             model._Email = HttpContext.Session.GetString(AppConstants.Email);
             model._id_static_user_type = HttpContext.Session.GetString(AppConstants.UserTypeStatic);
+            model._locationName = HttpContext.Session.GetString(AppConstants.LocationName);
+            if (model._id_static_user_type == "3" || model._id_static_user_type == "4")
+                Response.Redirect("/Authentication/AccessDenied");
+
             return View(model);
         }
     }

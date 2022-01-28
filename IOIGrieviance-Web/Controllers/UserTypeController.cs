@@ -43,7 +43,7 @@ namespace IOIGrieviance_Web.Controllers
             try
             {
                 string userId = HttpContext.Session.GetString(AppConstants.NIK);
-                response = await _client.GetApiResponse<List<MasterUserTypeModel>>($"{url}/api/MUserAccountType/lan-en");
+                response = await _client.GetApiResponse<List<MasterUserTypeModel>>($"{url}/api/MUserAccountType");
 
                 response.Data = response.Data;
                 msg = response.Message;
@@ -68,7 +68,7 @@ namespace IOIGrieviance_Web.Controllers
             try
             {
                 string language = HttpContext.Session.GetString(AppConstants.Language);
-                response = await _client.GetApiResponse<MasterUserTypeModel>($"{url}/api/MUserAccountType/lan-en/code={code}");
+                response = await _client.GetApiResponse<MasterUserTypeDetailModel>($"{url}/api/MUserAccountType/code={code}");
 
                 msg = response.Message;
                 sts = response.StatusCode;
@@ -95,7 +95,7 @@ namespace IOIGrieviance_Web.Controllers
                 model.created_by = HttpContext.Session.GetString(AppConstants.NIK);
                 model.creadMasterUserAccountTypeDto = data;
                 model.id_static_type = Convert.ToInt32(data.id_static_type);
-                if (string.IsNullOrEmpty(data.code))
+                if (string.IsNullOrEmpty(data.code_header))
                 {
                     response = await _client.PostApiResponse<MasterUserTypeModel>($"{url}/api/MUserAccountType/create", model);
                 }
@@ -103,7 +103,7 @@ namespace IOIGrieviance_Web.Controllers
                 {
                     var modelUpdate = new MasterUserTypeModelUpdateDTO();
                     modelUpdate.updateMasterUserAccountTypeDto = data;
-                    modelUpdate.code = data.code;
+                    modelUpdate.code = data.code_header;
                     modelUpdate.updated_by = HttpContext.Session.GetString(AppConstants.NIK);
                     response = await _client.PutApiResponse<MasterUserTypeModel>($"{url}/api/MUserAccountType/update", model);
                 }

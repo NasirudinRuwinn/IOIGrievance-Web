@@ -29,7 +29,7 @@ namespace IOIGrieviance_Web.Controllers
             model._Email = HttpContext.Session.GetString(AppConstants.Email);
             model._id_static_user_type = HttpContext.Session.GetString(AppConstants.UserTypeStatic);
             if (model._id_static_user_type != "1")
-                Response.Redirect("/Authorization/UnAuthorized");
+                Response.Redirect("/Authentication/AccessDenied");
 
             return View(model);
         }

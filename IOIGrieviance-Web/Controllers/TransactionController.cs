@@ -120,6 +120,14 @@ namespace IOIGrieviance_Web.Controllers
             return Json(list_location, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
         }
 
+        public async Task<ActionResult> GetAllLanguageSupported()
+        {
+            var response = new ApiResponse();
+            response = await _client.GetApiResponse<List<ViewSelectData>>($"{url}/api/MSupportedLanguage");
+            List<ViewSelectDataLanguage> list_lan = new List<ViewSelectDataLanguage>();
+            return Json(list_lan, new JsonSerializerSettings { ContractResolver = new DefaultContractResolver() });
+        }
+
         public async Task<IActionResult> Create(TransactionHeader dataTrx)
         {
             var response = new ApiResponse();
@@ -273,5 +281,61 @@ namespace IOIGrieviance_Web.Controllers
             }
             return Json(new { data = response.Data, status = sts, message = msg, success = isSuccess });
         }
+        public async Task<IActionResult> VoiceTranslate(string base64Voice, string code, string lan)
+        {
+            var response = new ApiResponse();
+            string msg = "";
+            string sts = "";
+            string isSuccess = "";
+            try
+            {
+                var dataDTO = new VoiceTransalateDTO
+                {
+                    code_header_report = code,
+                    code_header_speech = "txt",
+                    code_language = "en",
+                    country = "txt",
+                    language = "txt",
+                    speech_base64 = base64Voice
+                };
+
+                response = await _client.PostApiResponse<MasterUserAccount>($"{url}/api/GoogleAPI/speech-to-text/file-base-64", dataDTO);
+                msg = response.Message;
+                sts = response.StatusCode;
+                isSuccess = response.IsSuccess;
+            }
+            catch (Exception e)
+            {
+                msg = e.Message;
+                sts = "400";
+                isSuccess = "false";
+            }
+            //return Json(new { data = "", status = sts, message = msg, url = Url.Action(nameof(Index)) });
+            return Json(new { data = response.Data, status = sts, message = msg, success = isSuccess });
+        }
+
+        public async Task<IActionResult> TextTranslate(string lan, string ttt)
+        {
+            var response = new ApiResponse();
+            string msg = "";
+            string sts = "";
+            string isSuccess = "";
+            try
+            {
+                response = await _client.GetApiResponse<MasterUserAccount>($"{url}/api/GoogleAPI/translate?code_language={lan}&text={ttt}");
+                msg = response.Message;
+                sts = response.StatusCode;
+                isSuccess = response.IsSuccess;
+            }
+            catch (Exception e)
+            {
+                msg = e.Message;
+                sts = "400";
+                isSuccess = "false";
+            }
+            //return Json(new { data = "", status = sts, message = msg, url = Url.Action(nameof(Index)) });
+            return Json(new { data = response.Data, status = sts, message = msg, success = isSuccess });
+        }
     }
 }
+

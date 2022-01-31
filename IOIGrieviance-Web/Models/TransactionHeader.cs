@@ -51,4 +51,15 @@ namespace IOIGrieviance_Web.Models
         public string code_header { get; set; }
         public string status_report { get; set; }
     }
+
+    public class VoiceTransalateDTO
+    {
+
+        public string code_header_report { get; set; }
+        public string code_header_speech { get; set; }
+        public string speech_base64 { get; set; }
+        public string language { get; set; }
+        public string country { get; set; }
+        public string code_language { get; set; }
+    }
 }

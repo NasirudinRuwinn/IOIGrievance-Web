@@ -21,7 +21,9 @@ namespace IOIGrieviance_Web.ServiceAPI
 
 
         public object Data { get; set; }
+
     }
+
 
     public class ApiResponseConfirmPassword
     {

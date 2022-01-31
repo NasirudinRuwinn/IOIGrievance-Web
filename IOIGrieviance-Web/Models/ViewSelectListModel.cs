@@ -30,6 +30,16 @@ namespace IOIGrieviance_Web.Models
         public string Value { get; set; }
     }
 
+    public class ViewSelectDataLanguage
+    {
+
+        [JsonProperty("name")]
+        public string Text { get; set; }
+
+        [JsonProperty("code")]
+        public string Value { get; set; }
+    }
+
     public class ViewSelectDataLocation
     {
 

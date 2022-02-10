@@ -6,7 +6,7 @@
 <!--begin::Content-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
-    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack">
         <!--begin::Page title-->
         <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
             <!--begin::Title-->
@@ -57,7 +57,7 @@
 <!--begin dataTable::Content-->
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
-    <div id="kt_content_container" class="container-xxl">
+    <div id="kt_content_container" class="container-xxl p-0">
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->
@@ -84,7 +84,7 @@
                     <!--begin::Toolbar-->
                     <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                         <!--begin::Export-->
-                        <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                        <button type="button" class="btn btn-light-primary me-3 d-none" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -286,7 +286,7 @@
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">First Name</label>
+                                                <label class="required fw-bold fs-6 mb-2">Full Name</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input type="text" name="firstname" value="@Model.firstname" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="First name">
@@ -295,7 +295,7 @@
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
-                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container d-none">
                                                 <!--begin::Label-->
                                                 <label class="required fw-bold fs-6 mb-2">Last Name</label>
                                                 <!--end::Label-->
@@ -317,7 +317,7 @@
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
-                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container d-none">
                                                 <!--begin::Label-->
                                                 <label class="required fw-bold fs-6 mb-2">Phone</label>
                                                 <!--end::Label-->
@@ -435,8 +435,8 @@
                                     @*<th tabindex="0" aria-controls="kt_table_users_account_header" id="id" headers="" aria-label="id" class="d-none">ID</th>*@
                                     <th tabindex="0" aria-controls="kt_table_users_account_header" id="code" headers="" aria-sort="ascending" aria-label="code" class="min-w-125px">Code</th>
                                     <th tabindex="0" aria-controls="kt_table_users_account_header" id="username" headers="" aria-sort="ascending" aria-label="created_by" class="min-w-125px">User Name</th>
+                                    <th tabindex="0" aria-controls="kt_table_users_account_header" id="firstname" headers="" aria-sort="ascending" aria-label="firstname" class="min-w-125px">Full Name</th>
                                     <th tabindex="0" aria-controls="kt_table_users_account_header" id="email" headers="" aria-sort="ascending" aria-label="updated_by" class="min-w-125px">Email</th>
-                                    <th tabindex="0" aria-controls="kt_table_users_account_header" id="mobile_phone" headers="" aria-sort="ascending" aria-label="updated_by" class="min-w-125px">Phone</th>
                                     <th tabindex="0" aria-controls="kt_table_users_account_header" id="location_name" headers="" aria-sort="ascending" aria-label="updated_by" class="min-w-125px">Location</th>
                                     <th tabindex="0" aria-controls="kt_table_users_account_header" id="user_account_type_name" headers="" aria-sort="ascending" aria-label="updated_by" class="min-w-125px">User Type</th>
                                     @*<th tabindex="0" aria-controls="kt_table_users_account_header" id="company_name" headers="" aria-sort="ascending" aria-label="updated_by" class="min-w-125px">Company</th>*@

@@ -29,6 +29,11 @@ var KTProjectUsers = function () {
                 var columnHeaders = [];
                 var _table = table.rows[0];
 
+                $('#kt_table_location thead tr')
+                    .clone(true)
+                    .addClass('filters')
+                    .appendTo('#kt_table_location thead');
+
                 var t = $('#kt_table_location').DataTable({
                     data: response.data,
                     "columns": [
@@ -42,7 +47,7 @@ var KTProjectUsers = function () {
                         { "data": "name" },
                         {
                             data: null,
-                            className: "d-flex justify-content-end flex-shrink-0",
+                            className: "d-flex text-center flex-shrink-0",
                             defaultContent: actionButton
                         }
                     ],
@@ -54,8 +59,73 @@ var KTProjectUsers = function () {
                         //    "data": null
                         //}
                     ],
-                    "order": [[1, 'desc']]
+                    "language": {
+                        "paginate": {
+                            "next": "<i class='fas fa-angle-right'>",
+                            "previous": "<i class='fas fa-angle-left'>",
+                            "first": "<i class='fas fa-angle-double-left'>",
+                            "last": "<i class='fas fa-angle-double-right'>",
+                        }
+                    },
+                    "pagingType": "full_numbers",
+                    "order": [[1, 'desc']],
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    initComplete: function () {
+                        var api = this.api();
+
+                        // For each column
+                        api
+                            .columns()
+                            .eq(0)
+                            .each(function (colIdx) {
+                                // Set the header cell to contain the input element
+                                if (colIdx != 0) {
+                                    if (colIdx != 10) {
+                                        var cell = $('.filters th').eq(
+                                            $(api.column(colIdx).header()).index()
+                                        );
+                                        var title = $(cell).text();
+                                        $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                        // On every keypress in this input
+                                        $(
+                                            'input',
+                                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                            .off('keyup change')
+                                            .on('keyup change', function (e) {
+                                                e.stopPropagation();
+
+                                                // Get the search value
+                                                $(this).attr('title', $(this).val());
+                                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                                var cursorPosition = this.selectionStart;
+                                                // Search the column for that value
+                                                api
+                                                    .column(colIdx)
+                                                    .search(
+                                                        this.value != ''
+                                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                            : '',
+                                                        this.value != '',
+                                                        this.value == ''
+                                                    )
+                                                    .draw();
+
+                                                $(this)
+                                                    .focus()[0]
+                                                    .setSelectionRange(cursorPosition, cursorPosition);
+                                            });
+                                    }
+                                }
+                            });
+                    },//end filter column
                 });
+
+                $('.filters th:contains("No")').html('');
+                $('.filters th:contains("Action")').html('');
 
                 t.on('draw', function () {
                 }).on('order.dt search.dt', function () {

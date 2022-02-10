@@ -373,6 +373,16 @@ namespace IOIGrieviance_Web.ServiceAPI
             obj.Data = GetData<T>(message);
             return obj;
         }
+
+        public async Task<ApiResponseTTT> GetApiResponseTTT<T>(string url)
+        {
+            var message = await Get(url);
+            var obj = JsonConvert.DeserializeObject<ApiResponseTTT>(message);
+
+            //obj.data = GetData<T>(message);
+            return obj;
+        }
+
         public async Task<ApiResponse> GetApiResponseLogin<T>(string url)
         {
             var message = await GetLogin(url);

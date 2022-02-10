@@ -37,6 +37,10 @@ var KTProjectUsers = function () {
                 //        columnHeaders.push({ 'data': _table.cells[i].id, 'width': _table.cells[i].width, targets: 4 });
                 //    }
                 //}
+                $('#kt_table_users_account thead tr')
+                    .clone(true)
+                    .addClass('filters')
+                    .appendTo('#kt_table_users_account thead');
 
                 var t = $('#kt_table_users_account').DataTable({
                     data: response.data,
@@ -49,21 +53,21 @@ var KTProjectUsers = function () {
                         { "data": null, "targets": 0 },
                         { "data": "code" },
                         { "data": "username" },
+                        { "data": "firstname" },
                         { "data": "email" },
-                        { "data": "mobile_phone" },
                         { "data": "location_name" },
                         { "data": "user_account_type_name" },
                         //{ "data": "company_name" },
                         {
                             data: null,
-                            className: "d-flex justify-content-end flex-shrink-0",
+                            className: "d-flex text-center flex-shrink-0",
                             defaultContent: actionButton
                         }
                     ],
                     "buttons": [
                         "copy", "excel", "pdf"
                     ],
-                    "dom": "ltipr",
+                    //"dom": "ltipr",
                     "language": {
                         "paginate": {
                             "next": "<i class='fas fa-angle-right'>",
@@ -95,8 +99,65 @@ var KTProjectUsers = function () {
                         //    "defaultContent": actionButton
                         //}
                     ],
-                    "order": [[1, 'desc']]
+                    "order": [[1, 'desc']],
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    initComplete: function () {
+                        var api = this.api();
+
+                        // For each column
+                        api
+                            .columns()
+                            .eq(0)
+                            .each(function (colIdx) {
+                                // Set the header cell to contain the input element
+                                if (colIdx != 0) {
+                                    if (colIdx != 10) {
+                                        var cell = $('.filters th').eq(
+                                            $(api.column(colIdx).header()).index()
+                                        );
+                                        var title = $(cell).text();
+                                        $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                        // On every keypress in this input
+                                        $(
+                                            'input',
+                                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                            .off('keyup change')
+                                            .on('keyup change', function (e) {
+                                                e.stopPropagation();
+
+                                                // Get the search value
+                                                $(this).attr('title', $(this).val());
+                                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                                var cursorPosition = this.selectionStart;
+                                                // Search the column for that value
+                                                api
+                                                    .column(colIdx)
+                                                    .search(
+                                                        this.value != ''
+                                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                            : '',
+                                                        this.value != '',
+                                                        this.value == ''
+                                                    )
+                                                    .draw();
+
+                                                $(this)
+                                                    .focus()[0]
+                                                    .setSelectionRange(cursorPosition, cursorPosition);
+                                            });
+                                    }
+                                }
+                            });
+                    },//end filter column
+
                 });
+
+                $('.filters th:contains("No")').html('');
+                $('.filters th:contains("Action")').html('');
 
                 t.on('draw', function () {
                     //initToggleToolbar();
@@ -153,24 +214,24 @@ var KTProjectUsers = function () {
                     'firstname': {
                         validators: {
                             notEmpty: {
-                                message: 'First name is required'
+                                message: 'Full name is required'
                             }
                         }
                     },
-                    'lastname': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Last name is required'
-                            }
-                        }
-                    },
-                    'mobile_phone': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Phone is required'
-                            }
-                        }
-                    },
+                    //'lastname': {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Last name is required'
+                    //        }
+                    //    }
+                    //},
+                    //'mobile_phone': {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Phone is required'
+                    //        }
+                    //    }
+                    //},
                     'code_location': {
                         validators: {
                             notEmpty: {
@@ -244,27 +305,42 @@ var KTProjectUsers = function () {
                         console.log('validated!');
 
                         if (status == 'Valid') {
-                            // Show loading indication
-                            submitButton.setAttribute('data-kt-indicator', 'on');
-
-                            // Disable button to avoid multiple click 
-                            submitButton.disabled = true;
-
-                            // Simulate form submission
-                            setTimeout(function () {
-                                // Remove loading indication
-                                submitButton.removeAttribute('data-kt-indicator');
-
-                                // Enable button
-                                submitButton.disabled = false;
-
-                                var purl = $('#code').val() == '' ? "/UserAccount/Create" : "/UserAccount/Update"
-                                // Call action post
-                                callAction({ formId: "kt_modal_add_user_form", title: "save", type: "POST", url: purl });
-                                //form.submit(); // Submit form
-                            }, 2000);
+                            Swal.fire({
+                                title: "Confirmation",
+                                text: 'Are you sure want to submit this data?',
+                                type: "question",
+                                icon: 'question',
+                                showCancelButton: !0,
+                                confirmButtonText: "Yes",
+                                cancelButtonText: "No",
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                reverseButtons: !0,
+                                customClass: {
+                                    //confirmButton: "btn btn-primary"
+                                }
+                            }).then(function (ok) {
+                                if (ok.value) {
+                                    Swal.close();
+                                    // Show loading indication
+                                    submitButton.setAttribute('data-kt-indicator', 'on');
+                                    // Disable button to avoid multiple click 
+                                    submitButton.disabled = true;
+                                    // Simulate form submission
+                                    setTimeout(function () {
+                                        // Remove loading indication
+                                        submitButton.removeAttribute('data-kt-indicator');
+                                        // Enable button
+                                        submitButton.disabled = false;
+                                        var purl = $('#code').val() == '' ? "/UserAccount/Create" : "/UserAccount/Update"
+                                        // Call action post
+                                        callAction({ formId: "kt_modal_add_user_form", title: "save", type: "POST", url: purl });
+                                        //form.submit(); // Submit form
+                                    }, 2000);
+                                }
+                            });
                         } else {
-                            // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            // Show popup warning. 
                             Swal.fire({
                                 text: "Sorry, looks like there are some errors detected, please try again.",
                                 icon: "error",
@@ -781,7 +857,7 @@ function btnDeleteAction(e) {
             });
         }
     });
-   
+
 }
 
 

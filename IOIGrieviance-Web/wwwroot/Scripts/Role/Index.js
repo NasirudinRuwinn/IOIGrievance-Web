@@ -357,7 +357,7 @@ var KTProjectUsers = function () {
         //                        }
         //                    }
         //                },
-        //                'justification_request_from_dispatcher': {
+        //                'hq_note_to_justificator': {
         //                    validators: {
         //                        notEmpty: {
         //                            message: 'Justification Request is required'

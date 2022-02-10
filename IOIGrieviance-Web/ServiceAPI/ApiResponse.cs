@@ -24,6 +24,20 @@ namespace IOIGrieviance_Web.ServiceAPI
 
     }
 
+    public class ApiResponseTTT
+    {
+        [JsonProperty("status_code")]
+        public string StatusCode { get; set; }
+
+        [JsonProperty("success")]
+        public string IsSuccess { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+        [JsonProperty("data")]
+        public string data { get; set; }
+    }
+
 
     public class ApiResponseConfirmPassword
     {

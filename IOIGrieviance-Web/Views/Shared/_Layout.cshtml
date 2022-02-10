@@ -26,7 +26,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="~/assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="~/Image/ioi_group_logo_3643.gif" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -59,7 +59,7 @@ License: For each use you must have a valid license purchased only from above li
     <input type="hidden" id="hdn_user_static" />
     <!--end hidden--!-->
     <!--begin::Root-->
-    <div class="d-flex flex-column flex-root">
+    <div class="d-flex flex-column flex-root" id="kt_begin_page">
         <!--begin::Page-->
         <div class="page d-flex flex-row flex-column-fluid">
             <!--begin::Wrapper-->
@@ -137,21 +137,21 @@ License: For each use you must have a valid license purchased only from above li
                                                                 </a>
                                                             </div>*@
 
-                                                        <div class="menu-item">
+                                                        @*<div class="menu-item">
                                                             <a class="menu-link py-3" href="@Url.Action("Index", "UserType" )" title="Check out the complete documentation" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                                                 <span class="menu-icon">
-                                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
+                                                                    
                                                                     <span class="svg-icon svg-icon-2">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                                             <path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black" />
                                                                             <path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black" />
                                                                         </svg>
                                                                     </span>
-                                                                    <!--end::Svg Icon-->
+                                                                  
                                                                 </span>
                                                                 <span class="menu-title">User Type</span>
                                                             </a>
-                                                        </div>
+                                                        </div>*@
                                                     </div>
                                                 </div>
                                             }
@@ -191,7 +191,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                     </span>
                                                                     <!--end::Svg Icon-->
                                                                 </span>
-                                                                <span class="menu-title">Master Bussiness Unit</span>
+                                                                <span class="menu-title">Master Operating Unit</span>
                                                             </a>
                                                         </div>
                                                         @*<div class="menu-item">
@@ -216,11 +216,11 @@ License: For each use you must have a valid license purchased only from above li
 
                                         @{ if (@Model._id_static_user_type == "1") // administrator
                                             {
-                                                <div class="menu-item me-lg-1" id="all-menu-report">
+                                                @*<div class="menu-item me-lg-1" id="all-menu-report">
                                                     <a class="menu-link py-3" href="@Url.Action("Index", "Home")">
                                                         <span class="menu-title">Report</span>
                                                     </a>
-                                                </div>
+                                                </div>*@
                                             }}
                                     </div>
                                     <!--end::Menu-->
@@ -515,7 +515,6 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Scrolltop-->
     <!--begin::Modals-->
     <!--begin::Modal - Upgrade plan-->
-    
     <!--end::Modal - Upgrade plan-->
     <!--begin::Modal Change Password-->
     <div class="modal fade" id="kt_modal_change_password" tabindex="-1" aria-hidden="true">
@@ -652,7 +651,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Modal body-->
                 <div class="modal-body scroll-y mx-5">
                     <!--begin::Form    mx-xl-15 my-7 -->
-                    <form class="form w-100" novalidate="novalidate" id="kt_change_password_form">
+                    <form class="form w-100" novalidate="novalidate" id="kt_myprofile">
                         <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
                             <!--begin: Pic-->
                             <div class="me-7 mb-4">
@@ -681,11 +680,22 @@ License: For each use you must have a valid license purchased only from above li
                                                 </span>
                                                 <!--end::Svg Icon-->
                                             </a>
-                                            
+
                                         </div>
                                         <!--end::Name-->
                                         <!--begin::Info-->
                                         <div class="fw-bold fs-6 mb-4 pe-2">
+                                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                                                <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
+                                                <span class="svg-icon svg-icon-4 me-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19Z" fill="black"></path>
+                                                        <path d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z" fill="black"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                                @Model._Email
+                                            </a>
                                             <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                                 <!--begin::Svg Icon | path: icons/duotune/communication/com006.svg-->
                                                 <span class="svg-icon svg-icon-4 me-1">
@@ -704,18 +714,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <path d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z" fill="black"></path>
                                                     </svg>
                                                 </span>
-                                                <!--end::Svg Icon-->SF, Bay Area
-                                            </a>
-                                            <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                                                <!--begin::Svg Icon | path: icons/duotune/communication/com011.svg-->
-                                                <span class="svg-icon svg-icon-4 me-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                        <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19Z" fill="black"></path>
-                                                        <path d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z" fill="black"></path>
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                                @Model._Email
+                                                <!--end::Svg Icon-->@Model._locationName
                                             </a>
                                         </div>
                                         <!--end::Info-->

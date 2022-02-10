@@ -6,7 +6,7 @@
 <!--begin::Content-->
 <div class="toolbar" id="kt_toolbar">
     <!--begin::Container-->
-    <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack">
         <!--begin::Page title-->
         <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
             <!--begin::Title-->
@@ -49,7 +49,7 @@
 <!--begin dataTable::Content-->
 <div class="post d-flex flex-column-fluid" id="kt_post">
     <!--begin::Container-->
-    <div id="kt_content_container" class="container-xxl">
+    <div id="kt_content_container" class="container-xxl p-0">
         <!--begin::Card-->
         <div class="card">
             <!--begin::Card header-->
@@ -104,7 +104,7 @@
                         <!--begin::Modal dialog-->
                         <div class="modal-dialog modal-lg" style="height:100%">
                             <!--begin::Modal content-->
-                            <div class="modal-content" style="height:92%">
+                            <div class="modal-content" style="height:92%" id="modal-content-blockui">
                                 <!--begin::Modal header-->
                                 <div class="modal-header" id="kt_modal_add_trx_header">
                                     <!--begin::Modal title-->
@@ -149,10 +149,10 @@
                                             <!--begin::Input group location-->
                                             <div class="fv-row mb-7 fv-plugins-icon-container col-md-7">
                                                 <!--begin::Label-->
-                                                <label class="required form-label fw-bolder fs-6 text-gray-700">Business Unit</label>
+                                                <label class="required form-label fw-bolder fs-6 text-gray-700">Operating Unit</label>
                                                 <!--end::Label-->
                                                 <!--begin::Select-->
-                                                <select name="id_bussiness" id="id_bussiness" aria-label="Select a Business Unit" data-control="select2" data-placeholder="Select Business Unit" class="form-select form-select-solid" tabindex="-1" data-dropdown-parent="#kt_modal_add_trx">
+                                                <select name="id_bussiness" id="id_bussiness" aria-label="Select a Operating Unit" data-control="select2" data-placeholder="Select Operating Unit" class="form-select form-select-solid" tabindex="-1" data-dropdown-parent="#kt_modal_add_trx">
                                                     <option></option>
                                                 </select>
                                                 <!--end::Select-->
@@ -173,7 +173,7 @@
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">Complinant</label>
+                                                <label class="required fw-bold fs-6 mb-2">complainee</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
                                                 <input type="text" name="suspected" id="suspected" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Report Category">
@@ -278,34 +278,36 @@
                                                         </div>
 
                                                         <div class="record-button-container text-center mt-5" id="div-button-voice-translate" style="display:none">
-                                                            <div class="row g-3 align-items-center">
-                                                                <div class="col-auto">
-                                                                    <button class="btn btn-icon text-center btn-success btn-cyrcle btn-hover-rise me-3" id="btn-voice-transalate" onclick="voiceTransalate()" data-toggle="tooltip" title="Transalate">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
-                                                                            <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z" />
-                                                                            <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z" />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
+                                                            <div class="col-auto">
+                                                                <button class="btn btn-icon text-center btn-success btn-cyrcle btn-hover-rise me-3" id="btn-voice-transalate" onclick="voiceTransalate()" data-toggle="tooltip" title="Transalate">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                                                                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z" />
+                                                                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z" />
+                                                                    </svg>
+                                                                </button>
                                                             </div>
                                                         </div>
                                                         <div class="record-button-container text-center mt-5 d-none" id="div-voice-translate-result">
                                                             <div class="row g-3 align-items-center">
                                                                 <textarea name="voice_translate_result" id="voice_translate_result" class="form-control form-control-solid" rows="3" placeholder="Description"></textarea>
                                                             </div>
-                                                            <div class="col-md-5" id="div_id_all_lang_voice_result">
-                                                                <select name="id_all_lang_ttt" id="id_all_lang_ttt" data-control="select2" data-placeholder="Select Languange" class="form-select form-select-solid all-lang-ddl" tabindex="-1" aria-hidden="true">
-                                                                    <option></option>
-                                                                </select>
-                                                            </div>
 
-                                                            <div class="col-auto">
-                                                                <button class="btn btn-icon text-center btn-success btn-cyrcle btn-hover-rise me-3" id="btn-voice-transalate-ttt" onclick="textTransalate()" data-toggle="tooltip" title="Transalate">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
-                                                                        <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z" />
-                                                                        <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z" />
-                                                                    </svg>
-                                                                </button>
+                                                            <div class="text-center mt-5" id="div_id_all_lang_voice_result">
+                                                                <div class="row g-3 align-items-center">
+                                                                    <div class="col-md-5" id="div-all_lang_desc">
+                                                                        <select name="id_all_lang_ttt" id="id_all_lang_ttt" data-control="select2" data-placeholder="Select Languange" class="form-select form-select-solid all-lang-ddl" tabindex="-1" aria-hidden="true">
+                                                                            <option></option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <button class="btn btn-icon text-center btn-success btn-cyrcle btn-hover-rise me-3" id="btn-voice-transalate-ttt" onclick="textTransalate()" data-toggle="tooltip" title="Transalate">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                                                                                <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z" />
+                                                                                <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="record-button-container text-center mt-5 d-none" id="div-voice-result-ttt">
@@ -315,6 +317,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="text-center mt-5 d-none" id="div_language_code_stt">
+                                                    <div class="row g-3 align-items-center">
+                                                        <div class="col-md-5">
+                                                            <select name="language_code_stt" id="language_code_stt" data-control="select2" data-placeholder="Select Languange" class="form-select form-select-solid all-lang-ddl" tabindex="-1" aria-hidden="true">
+                                                                <option></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <span class="text-active-danger">* Please select language according to voice recorded</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
@@ -337,7 +354,51 @@
                                                 <label class="fw-bold fs-6 mb-2" id="lbl-notes">Notes</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <textarea type="text" id="justification_request_from_dispatcher" name="justification_request_from_dispatcher" class="form-control form-control-solid mb-3 mb-lg-0" rows="3" placeholder="Notes"></textarea>
+                                                <textarea type="text" id="hq_note_to_justificator" name="hq_note_to_justificator" class="form-control form-control-solid mb-3 mb-lg-0" rows="3" placeholder="Notes"></textarea>
+                                                <!--end::Input-->
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7 fv-plugins-icon-container col-md-7 d-none" id="div-notes-02">
+                                                <!--begin::Label-->
+                                                <label class="fw-bold fs-6 mb-2" id="lbl-notes">Notes</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea type="text" id="hq_note_to_justificator_02" name="hq_note_to_justificator_02" class="form-control form-control-solid mb-3 mb-lg-0" rows="3" placeholder="Notes"></textarea>
+                                                <!--end::Input-->
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7 fv-plugins-icon-container col-md-7 d-none" id="div-feedback">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2" id="lbl-notes">Feedback Note</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea type="text" id="hq_note_to_reporter" name="hq_note_to_reporter" class="form-control form-control-solid mb-3 mb-lg-0" rows="3" placeholder="Feedback"></textarea>
+                                                <!--end::Input-->
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7 fv-plugins-icon-container col-md-7 d-none" id="div-feedback-02">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2" id="lbl-notes">Feedback Note</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <textarea type="text" id="hq_note_to_reporter_02" name="hq_note_to_reporter_02" class="form-control form-control-solid mb-3 mb-lg-0" rows="3" placeholder="Feedback"></textarea>
+                                                <!--end::Input-->
+                                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7 fv-plugins-icon-container col-md-7" id="div-islooping">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">Need Reporter Feedback</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input class="form-check-input" id="cbx_need_feedback" onchange="cbxNeedFeedback(this)" type="checkbox" data-kt-check="true">
                                                 <!--end::Input-->
                                                 <div class="fv-plugins-message-container invalid-feedback"></div>
                                             </div>
@@ -348,7 +409,11 @@
                                         <div class="text-center pt-5">
                                             <button type="reset" class="btn btn-light me-3" id="btn-cancel" data-kt-trx-modal-action="cancel">Cancel</button>
                                             <button type="reset" class="btn btn-danger btn-light me-3" id="btn-reject" data-kt-trx-modal-action="reject">Reject</button>
-                                            <button type="submit" class="btn btn-primary btn-light me-3" id="btn-approve" data-kt-trx-modal-action="reject">Approve</button>
+                                            <button type="submit" class="btn btn-primary btn-light me-3" id="btn-approve" data-kt-trx-modal-action="reject">Close</button>
+
+                                            <button type="submit" class="btn btn-primary btn-light me-3 d-none" id="btn-acepted" data-kt-trx-modal-action="submit">Accepted</button>
+                                            <button type="submit" class="btn btn-primary btn-light me-3 d-none" id="btn-notacepted" data-kt-trx-modal-action="submit">Rejected</button>
+
                                             <button type="submit" class="btn btn-primary" id="btn-submit" data-kt-trx-modal-action="submit">
                                                 <span class="indicator-label">Submit</span>
                                                 <span class="indicator-progress">
@@ -446,12 +511,29 @@
                                                                 <!--end::Label-->
                                                                 <!--begin::Badge-->
                                                                 <div class="timeline-badge">
-                                                                    <i class="fa fa-genderless text-muted fs-1"></i>
+                                                                    <i class="fa fa-genderless fs-1"></i>
                                                                 </div>
                                                                 <!--end::Badge-->
                                                                 <!--begin::Content-->
                                                                 <div class="timeline-content d-flex">
-                                                                    <span class="fw-bolder text-muted ps-3">Justificator (Pending)</span>
+                                                                    <span id="span_justificator" class="fw-bolder text-muted ps-3">Justificator</span>
+                                                                </div>
+                                                                <!--end::Content-->
+                                                            </div>
+                                                            <!--end::Item-->
+                                                            <!--begin::Item-->
+                                                            <div class="timeline-item">
+                                                                <!--begin::Label-->
+                                                                <div class="timeline-label fw-bolder text-gray-800 fs-6"></div>
+                                                                <!--end::Label-->
+                                                                <!--begin::Badge-->
+                                                                <div class="timeline-badge">
+                                                                    <i id="i_hq_final" class="fa fa-genderless fs-1"></i>
+                                                                </div>
+                                                                <!--end::Badge-->
+                                                                <!--begin::Content-->
+                                                                <div class="timeline-content d-flex">
+                                                                    <span class="fw-bolder text-muted ps-3" id="span_hq_final">HQ Dispathcer</span>
                                                                 </div>
                                                                 <!--end::Content-->
                                                             </div>
@@ -511,13 +593,14 @@
                                 <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                     <th tabindex="0" aria-controls="kt_table_trx_header" width="30">No</th>
-                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="code" headers="hidden" class="hidden"></th>
-                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="created_date" headers="date" aria-label="created_date" class="min-w-150px">Submission Date</th>
-                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="suspected" headers="" aria-sort="ascending" aria-label="id_report_type" class="min-w-125px">Complinant</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="code" headers="" class="">Doc Number</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="reporter_created_date" headers="date" aria-label="created_date" class="min-w-150px">Submission Date</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="suspected" headers="" aria-sort="ascending" aria-label="id_report_type" class="min-w-125px">complainee</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="location_name" headers="" aria-sort="ascending" aria-label="location" class="min-w-125px">Location</th>
-                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="bussiness_unit_name" headers="" aria-sort="ascending" aria-label="bussiness" class="min-w-125px">Business Unit</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="bussiness_unit_name" headers="" aria-sort="ascending" aria-label="bussiness" class="min-w-125px">Operating Unit</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="id_status" headers="status" aria-sort="ascending" aria-label="status" class="min-w-125px">Latest Status</th>
-                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="created_by" headers="" aria-sort="ascending" aria-label="" class="min-w-125px">Latest Receiver</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="id_status" headers="nextstatus" aria-sort="ascending" aria-label="status" class="min-w-125px">Next Status</th>
+                                    <th tabindex="0" aria-controls="kt_table_trx_header" id="created_by" headers="receiver" aria-sort="ascending" aria-label="" class="min-w-125px">Latest Receiver</th>
                                     <th tabindex="0" aria-controls="kt_table_trx_header" id="created_date" headers="date" aria-sort="ascending" aria-label="updated_date" class="min-w-125px">Latest Update</th>
                                     <th class="min-w-100px sorting_disabled" aria-label="Actions">Actions</th>
                                 </tr>
@@ -540,7 +623,7 @@
 <!--begin action button element-->
 <div id="default-button-action-all" style="display:none">
     <span style="overflow: visible; position: relative; width: 130px;">
-        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-1" data-toggle="dropdown" id="btn-view" onclick="btnViewAction(this, 'view')">
+        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-1" title="View Details" data-toggle="dropdown" id="btn-view" onclick="btnViewAction(this, 'view')">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-icon">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -553,7 +636,7 @@
         </a>
 
 
-        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-1" title="Edit details" id="btn-edit" onclick="btnViewAction(this, 'edit')">
+        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-1" title="Edit Data" id="btn-edit" onclick="btnViewAction(this, 'edit')">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -565,7 +648,7 @@
             </span>
         </a>
 
-        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-1" title="Edit details" id="btn-edit" onclick="btnViewAction(this, 'timeline')">
+        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-warning btn-sm me-1" title="Timeline" id="btn-edit" onclick="btnViewTimeline(this)">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
                     <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
@@ -578,7 +661,7 @@
 
 <div id="default-button-action-view" style="display:none">
     <span style="overflow: visible; position: relative; width: 130px;">
-        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-1" data-toggle="dropdown" onclick="btnViewAction(this, 'view')">
+        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-primary btn-sm me-1" title="View Details" data-toggle="dropdown" onclick="btnViewAction(this, 'view')">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-icon">
                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -590,7 +673,7 @@
             </span>
         </a>
 
-        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-success btn-sm me-1" title="Edit details" id="btn-edit" onclick="btnViewAction(this, 'timeline')">
+        <a href="javascript:;" class="btn btn-icon btn-bg-light btn-light-warning btn-sm me-1" title="Timeline" id="btn-edit" onclick="btnViewTimeline(this)">
             <span class="svg-icon svg-icon-md">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
                     <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />

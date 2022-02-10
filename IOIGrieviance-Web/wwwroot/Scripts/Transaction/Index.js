@@ -1,5 +1,10 @@
 ﻿"use strict";
 
+var target = document.querySelector("#kt_begin_page");
+var blockUI = new KTBlockUI(target, {
+    message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Loading...</div>',
+});
+
 // Class definition
 var KTProjectUsers = function () {
 
@@ -17,6 +22,10 @@ var KTProjectUsers = function () {
         if (!table) {
             return;
         }
+
+        // BLOCK UI
+
+        //
 
         // Init datatable
         const actionButtonAll = document.getElementById('default-button-action-all').children[0].innerHTML;
@@ -40,7 +49,23 @@ var KTProjectUsers = function () {
                     else if (_table.cells[i].headers == "status") {
                         columnHeaders.push({
                             'data': 'id_status', render: function (data, type, row) {
-                                return data == '1' ? '<span class="badge badge-light-info">HQ Verification</span>' : data == '2' ? '<span class="badge badge-light-warning">On Progress</span>' : data == '3' ? '<span class="badge badge-light-primary">HQ Final Verification</span>' : data == '4' ? '<span class="badge badge-light-success">New</span>' : '<span class="badge badge-light-info"> Reject</span>'
+                                return data == '1' ? '<span class="badge badge-light-primary">New</span>' : (data == '2' && $('#hdn_user_static').val() != '1') ? '<span class="badge badge-light-info">HQ Verified</span>' : (data == '2' && $('#hdn_user_static').val() == '1') ? '<span class="badge badge-light-primary">New</span>' : data == '3' ? '<span class="badge badge-light-info">Justificator Approved</span>' : data == '4' ? '<span class="badge badge-light-danger">Justificator Rejected</span>' : data == '5' ? '<span class="badge badge-light-success">HQ Approved</span>' : '<span class="badge badge-light-danger">HQ Rejected</span>'
+                            }//,
+                            //'width': table.cells[i].width, targets: i
+                        });
+                    }
+                    else if (_table.cells[i].headers == "nextstatus") {
+                        columnHeaders.push({
+                            'data': 'id_status', render: function (data, type, row) {
+                                return data == '1' ? '<span class="badge badge-light-warning">HQ Verification</span>' : data == '2' ? '<span class="badge badge-light-warning">Justification</span>' : data == '3' ? '<span class="badge badge-light-warning">HQ Last Verification</span>' : data == '4' ? '<span class="badge badge-light-warning">HQ Last Verification</span>' : data == '5' ? '<span class="badge badge-light-success">Closed</span>' : '<span class="badge badge-light-danger">Closed</span>'
+                            }//,
+                            //'width': table.cells[i].width, targets: i
+                        });
+                    }
+                    else if (_table.cells[i].headers == "receiver") {
+                        columnHeaders.push({
+                            'data': 'created_by', render: function (data, type, row) {
+                                return row.id_status == '1' ? 'HQ Dispatcher' : row.id_status == '2' ? 'Justificator' : row.id_status == '3' ? 'Justificator' : row.id_status == '4' ? 'Justificator' : row.id_status == '5' ? 'HQ Dispatcher' : 'HQ Dispatcher'
                             }//,
                             //'width': table.cells[i].width, targets: i
                         });
@@ -50,13 +75,22 @@ var KTProjectUsers = function () {
                     }
                 }
 
+                //$('#kt_table_trx tfoot th').each(function () {
+                //    var title = $(this).text();
+                //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                //});
+                $('#kt_table_trx thead tr')
+                    .clone(true)
+                    .addClass('filters')
+                    .appendTo('#kt_table_trx thead');
+
                 var t = $('#kt_table_trx').DataTable({
                     data: response.data,
                     "columns": columnHeaders,
                     "buttons": [
                         "copy", "excel", "pdf"
                     ],
-                    "dom": "ltipr",
+                    //"dom": "ltipr",
                     "language": {
                         "paginate": {
                             "next": "<i class='fas fa-angle-right'>",
@@ -80,24 +114,81 @@ var KTProjectUsers = function () {
                             "targets": 1,
                             "data": null,
                             "defaultContent": "",
-                            "className": "d-none"
+                            "className": ""
                             //"visible": false
                         },
                         {
                             "searchable": false,
                             "orderable": false,
-                            "targets": 9,
+                            "targets": 10,
                             "data": 'id_status',
-                            "className": "d-flex justify-content-end flex-shrink-0",
+                            "className": "d-flex text-center flex-shrink-0",
                             "render": function (data, type, row, meta) {
-                                return row.id_status == 2 ? actionButtonView : actionButtonAll;
+                                return (row.id_status == 1 || row.id_status == 3 || row.id_status == 4) ? actionButtonAll : actionButtonView;
                             },
                             //"defaultContent": actionButton
                         }
                     ],
-                    "order": [[2, 'desc']]
-                });
+                    "order": [[2, 'desc']],
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    initComplete: function () {
+                        var api = this.api();
 
+                        // For each column
+                        api
+                            .columns()
+                            .eq(0)
+                            .each(function (colIdx) {
+                                // Set the header cell to contain the input element
+                                if (colIdx != 0) {
+                                    if (colIdx != 10) {
+                                        var cell = $('.filters th').eq(
+                                            $(api.column(colIdx).header()).index()
+                                        );
+                                        var title = $(cell).text();
+                                        $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                                        // On every keypress in this input
+                                        $(
+                                            'input',
+                                            $('.filters th').eq($(api.column(colIdx).header()).index())
+                                        )
+                                            .off('keyup change')
+                                            .on('keyup change', function (e) {
+                                                e.stopPropagation();
+
+                                                // Get the search value
+                                                $(this).attr('title', $(this).val());
+                                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                                var cursorPosition = this.selectionStart;
+                                                // Search the column for that value
+                                                api
+                                                    .column(colIdx)
+                                                    .search(
+                                                        this.value != ''
+                                                            ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                            : '',
+                                                        this.value != '',
+                                                        this.value == ''
+                                                    )
+                                                    .draw();
+
+                                                $(this)
+                                                    .focus()[0]
+                                                    .setSelectionRange(cursorPosition, cursorPosition);
+                                            });
+                                    }
+                                }
+                            });
+                    },
+
+
+                    // end filter column
+                });
+                $('.filters th:contains("No")').html('');
+                $('.filters th:contains("Action")').html('');
                 t.on('draw', function () {
                     //initToggleToolbar();
                     //handleDeleteRows();
@@ -124,8 +215,10 @@ var KTProjectUsers = function () {
             }
         });
 
+
         // Submit button handler
         const submitButton = document.getElementById('btn-submit');
+
         submitButton.addEventListener('click', e => {
             e.preventDefault();
             // Validate form before submit
@@ -154,12 +247,18 @@ var KTProjectUsers = function () {
                                 if (ok.value) {
                                     // Simulate form submission
                                     // Show loading indication
+                                    //if (blockUI.isBlocked()) {
+                                    //    blockUI.release();
+                                    //} else {
+
+                                    //}
+                                    Swal.close();
                                     submitButton.setAttribute('data-kt-indicator', 'on');
                                     // Disable button to avoid multiple click 
                                     submitButton.disabled = true;
                                     setTimeout(function () {
-                                        Swal.close();
 
+                                        //blockUI.block();
                                         // Remove loading indication
                                         //submitButton.removeAttribute('data-kt-indicator');
                                         // Enable button
@@ -168,10 +267,12 @@ var KTProjectUsers = function () {
                                         // Call action post
                                         callActionTrx({ formId: "kt_modal_add_trx_form", title: "save", type: "POST", url: '/Transaction/create' });
                                         //form.submit(); // Submit form
+                                        //blockUI.release();
                                     }, 2000);
                                 }
                             });
                         } else {
+                            blockUI.release();
                             Swal.fire({
                                 text: AttchValid,
                                 icon: "error",
@@ -180,11 +281,13 @@ var KTProjectUsers = function () {
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
+
                             });
                         }
 
                     } else {
                         // Show popup warning.
+                        blockUI.release();
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
                             icon: "error",
@@ -207,7 +310,6 @@ var KTProjectUsers = function () {
 
             if (validator) {
                 validator.validate().then(function (status) {
-
                     console.log('validated!');
                     var AttchValid = attachmentValidation();
                     if (status == 'Valid') {
@@ -230,24 +332,32 @@ var KTProjectUsers = function () {
                                 if (ok.value) {
                                     // Simulate form submission
                                     // Show loading indication
-                                    submitButton.setAttribute('data-kt-indicator', 'on');
-                                    // Disable button to avoid multiple click 
-                                    submitButton.disabled = true;
-                                    setTimeout(function () {
-                                        Swal.close();
+                                    //if (blockUI.isBlocked()) {
+                                    //    blockUI.release();
+                                    //} else {
 
+                                    //}
+                                    Swal.close();
+                                    rejectButton.setAttribute('data-kt-indicator', 'on');
+                                    // Disable button to avoid multiple click 
+                                    rejectButton.disabled = true;
+                                    setTimeout(function () {
+
+                                        //blockUI.block();
                                         // Remove loading indication
                                         //submitButton.removeAttribute('data-kt-indicator');
                                         // Enable button
                                         //submitButton.disabled = false;
 
                                         // Call action post
-                                        callActionTrx({ formId: "kt_modal_add_trx_form", title: "save", type: "POST", url: '' });
+                                        callActionTrxApproveReject({ formId: "kt_modal_add_trx_form", title: "save", type: "POST", url: '/Transaction/Reject' });
                                         //form.submit(); // Submit form
+                                        //blockUI.release();
                                     }, 2000);
                                 }
                             });
                         } else {
+                            blockUI.release();
                             Swal.fire({
                                 text: AttchValid,
                                 icon: "error",
@@ -256,11 +366,100 @@ var KTProjectUsers = function () {
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
+
                             });
                         }
 
                     } else {
                         // Show popup warning.
+                        blockUI.release();
+                        Swal.fire({
+                            text: "Sorry, looks like there are some errors detected, please try again.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        // Approve
+        // Submit button handler
+        const approveButton = document.getElementById('btn-approve');
+
+        approveButton.addEventListener('click', e => {
+            e.preventDefault();
+            // Validate form before submit
+
+            if (validator) {
+                validator.validate().then(function (status) {
+                    console.log('validated!');
+                    var AttchValid = attachmentValidation();
+                    if (status == 'Valid') {
+                        if (AttchValid == 'Valid') {
+                            Swal.fire({
+                                title: "Confirmation",
+                                text: 'Are you sure want to submit this data?',
+                                type: "question",
+                                icon: 'question',
+                                showCancelButton: !0,
+                                confirmButtonText: "Yes",
+                                cancelButtonText: "No",
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                reverseButtons: !0,
+                                customClass: {
+                                    //confirmButton: "btn btn-primary"
+                                }
+                            }).then(function (ok) {
+                                if (ok.value) {
+                                    // Simulate form submission
+                                    // Show loading indication
+                                    //if (blockUI.isBlocked()) {
+                                    //    blockUI.release();
+                                    //} else {
+
+                                    //}
+                                    Swal.close();
+                                    approveButton.setAttribute('data-kt-indicator', 'on');
+                                    // Disable button to avoid multiple click 
+                                    approveButton.disabled = true;
+                                    setTimeout(function () {
+
+                                        //blockUI.block();
+                                        // Remove loading indication
+                                        //submitButton.removeAttribute('data-kt-indicator');
+                                        // Enable button
+                                        //submitButton.disabled = false;
+
+                                        // Call action post
+                                        callActionTrxApproveReject({ formId: "kt_modal_add_trx_form", title: "save", type: "POST", url: '/Transaction/Approve' });
+                                        //form.submit(); // Submit form
+                                        //blockUI.release();
+                                    }, 2000);
+                                }
+                            });
+                        } else {
+                            blockUI.release();
+                            Swal.fire({
+                                text: AttchValid,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+
+                            });
+                        }
+
+                    } else {
+                        // Show popup warning.
+                        blockUI.release();
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
                             icon: "error",
@@ -401,6 +600,11 @@ var KTProjectUsers = function () {
         $('#id_recipient').select2({
             ajax: {
                 url: "/Transaction/GetAllRecipient",
+                data: function (params) {
+                    return {
+                        code_location: $('#id_location').val()
+                    };
+                },
                 dataType: 'json',
                 processResults: function (data) {
                     var results = [];
@@ -422,7 +626,7 @@ var KTProjectUsers = function () {
 
         $('#id_all_lang_desc').select2({
             ajax: {
-                url: "/Transaction/GetAllRecipient",
+                url: "/Transaction/GetAllLanguageSupported",
                 dataType: 'json',
                 processResults: function (data) {
                     var results = [];
@@ -442,9 +646,32 @@ var KTProjectUsers = function () {
             }
         });
 
+        $('#language_code_stt').select2({
+            ajax: {
+                url: "/Transaction/GetAllLanguageSupported",
+                dataType: 'json',
+                processResults: function (data) {
+                    var results = [];
+                    $.each(data, function (index, account) {
+                        $.each(account, function (i, val) {
+                            results.push({
+                                id: val.Value,
+                                text: val.Text
+                            });
+                        });
+                    });
+
+                    return {
+                        results: results
+                    };
+                }
+            }
+        });
+
+
         $('#id_all_lang_ttt').select2({
             ajax: {
-                url: "/Transaction/GetAllRecipient",
+                url: "/Transaction/GetAllLanguageSupported",
                 dataType: 'json',
                 processResults: function (data) {
                     var results = [];
@@ -510,10 +737,17 @@ var KTProjectUsers = function () {
                             }
                         }
                     },
-                    'justification_request_from_dispatcher': {
+                    'hq_note_to_justificator': {
                         validators: {
                             notEmpty: {
                                 message: 'Justification Request is required'
+                            }
+                        }
+                    },
+                    'hq_note_to_reporter': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Feedback Note is required'
                             }
                         }
                     },
@@ -563,7 +797,112 @@ var KTProjectUsers = function () {
         var object = {};
         var params = $('#' + parameter.formId).serializeArray();
         const submitButton1 = element.querySelector('[data-kt-trx-modal-action="submit"]');
+        //var target = document.querySelector("#kt_modal_add_trx");
+        //var blockUI = new KTBlockUI(target);
 
+        //Start image collection data
+        var arrayImage = [];
+        document.querySelector('#kt_dropzonejs_example_1').children.forEach(previmg => {
+            previmg.firstElementChild.children.forEach(a => {
+                //collect a.currentSrc
+                var x = JSON.parse(JSON.stringify(a.currentSrc));
+                arrayImage.push(x);
+            });
+        });
+        //end image collection data
+
+        //Start property collection data
+        $.each(params, function (i, val) {
+            object[val.name] = val.value;
+        });
+        //end property collection data
+
+        //Start get lits recipient
+        $.each(params, function (i, val) {
+            object[val.name] = val.value;
+        });
+        //end get lits recipient
+
+        var base64 = $('#voice_note').val().replace(/^data:audio\/[a-z]+; base64,/, '');
+        object['createTransDAttachmentDto'] = arrayImage;
+        object['createTransDSTTDto'] = base64;//$('#voice_note').val();
+        object['code_location'] = $('#id_location').val();
+        object['code_bussiness_unit'] = $('#id_bussiness').val();
+        object['language_code_stt'] = $('#language_code_stt').val();
+        object['user_dispatcher'] = $('#hdn_nik').val();
+        object['createTransDRecipientDto'] = $('#id_recipient').val();
+        object['code'] = $('#code').val();
+        //end property collection data
+        var url = 'Transaction/Create';
+        if ($('#hdn_user_static').val() == '1' && $('#code').val() == '') { url = 'Transaction/CreateForAdmin'; }
+
+        //Start call ajax
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: object,
+            dataType: 'json',
+            success: function (result) {
+                if (result.success === "true") {
+                    // Show popup confirmation 
+                    blockUI.release();
+                    Swal.fire({
+                        text: "Form has been successfully submitted!",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function (result) {
+                        if (result.isConfirmed) {
+                            modal.hide();
+                            window.location.reload();
+                        }
+                    });
+                    // Remove loading indication
+                    submitButton1.removeAttribute('data-kt-indicator');
+                    // Enable button
+                    submitButton1.disabled = false;
+                    //$('#id_location').select2(); $('#id_bussiness').select2();
+                    //_loc(); _bussiness();
+                } else {
+                    blockUI.release();
+                    //$('#loadbar').remove();
+                    Swal.fire('Warning', result.message, 'warning');
+                }
+                //mApp.unblock("#m_blockui_list");
+            },
+            error: function (e, t, s) {
+                $('#loadbar').remove();
+                blockUI.release();
+                var errorMessage = e.message;
+                if (errorMessage === "" || errorMessage === undefined) {
+                    errorMessage = "Ooops, something went wrong !";
+                }
+                Swal.fire('Error', errorMessage, 'error');
+                // Remove loading indication
+                submitButton1.removeAttribute('data-kt-indicator');
+                // Enable button
+                submitButton1.disabled = false;
+                //mApp.unblock("#m_blockui_list");
+            }
+        }).then(setTimeout(function () {
+            //mApp.unblock("#m_blockui_list");
+        }, 2e3));
+
+        //end call ajax
+
+    }
+    // end create data
+
+    // Prepare Create Data
+    var callActionTrxApproveReject = (parameter) => {
+        var object = {};
+        var params = $('#' + parameter.formId).serializeArray();
+        const submitButton1 = element.querySelector('[data-kt-trx-modal-action="submit"]');
+        //var target = document.querySelector("#kt_modal_add_trx");
+        //var blockUI = new KTBlockUI(target);
 
         //Start image collection data
         var arrayImage = [];
@@ -597,15 +936,17 @@ var KTProjectUsers = function () {
         object['code'] = $('#code').val();
         //end property collection data
 
+
         //Start call ajax
         $.ajax({
-            url: "Transaction/Create",
+            url: parameter.url,
             type: 'POST',
             data: object,
             dataType: 'json',
             success: function (result) {
                 if (result.success === "true") {
                     // Show popup confirmation 
+                    blockUI.release();
                     Swal.fire({
                         text: "Form has been successfully submitted!",
                         icon: "success",
@@ -627,6 +968,7 @@ var KTProjectUsers = function () {
                     //$('#id_location').select2(); $('#id_bussiness').select2();
                     //_loc(); _bussiness();
                 } else {
+                    blockUI.release();
                     //$('#loadbar').remove();
                     Swal.fire('Warning', result.message, 'warning');
                 }
@@ -634,88 +976,7 @@ var KTProjectUsers = function () {
             },
             error: function (e, t, s) {
                 $('#loadbar').remove();
-                var errorMessage = e.message;
-                if (errorMessage === "" || errorMessage === undefined) {
-                    errorMessage = "Ooops, something went wrong !";
-                }
-                Swal.fire('Error', errorMessage, 'error');
-                // Remove loading indication
-                submitButton1.removeAttribute('data-kt-indicator');
-                // Enable button
-                submitButton1.disabled = false;
-                //mApp.unblock("#m_blockui_list");
-            }
-        }).then(setTimeout(function () {
-            //mApp.unblock("#m_blockui_list");
-        }, 2e3));
-
-        //end call ajax
-
-    }
-    // end create data
-
-    // Prepare Create Data
-    var callActionApproveReject = (parameter) => {
-        var object = {};
-        var params = $('#' + parameter.formId).serializeArray();
-        const submitButton1 = document.getElementById()
-        var url = "";
-        if ($('#status_id').val() == '4')
-            url = "Transaction/Reject";
-        else
-            url = "Transaction/Approve";
-        //end image collection data
-
-        //Start property collection data
-        $.each(params, function (i, val) {
-            object[val.name] = val.value;
-        });
-        //end property collection data
-
-        object['code_location'] = $('#id_location').val();
-        object['code_bussiness_unit'] = $('#id_bussiness').val();
-        object['user_dispatcher'] = $('#hdn_nik').val();
-        object['createTransDRecipientDto'] = $('#id_recipient').val();
-        object['code'] = $('#code').val();
-        //end property collection data
-
-        //Start call ajax
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: object,
-            dataType: 'json',
-            success: function (result) {
-                if (result.success === "true") {
-                    // Show popup confirmation 
-                    Swal.fire({
-                        text: "Form has been successfully submitted!",
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function (result) {
-                        if (result.isConfirmed) {
-                            modal.hide();
-                            window.location.reload();
-                        }
-                    });
-                    // Remove loading indication
-                    submitButton1.removeAttribute('data-kt-indicator');
-                    // Enable button
-                    submitButton1.disabled = false;
-                    //$('#id_location').select2(); $('#id_bussiness').select2();
-                    //_loc(); _bussiness();
-                } else {
-                    //$('#loadbar').remove();
-                    Swal.fire('Warning', result.message, 'warning');
-                }
-                //mApp.unblock("#m_blockui_list");
-            },
-            error: function (e, t, s) {
-                $('#loadbar').remove();
+                blockUI.release();
                 var errorMessage = e.message;
                 if (errorMessage === "" || errorMessage === undefined) {
                     errorMessage = "Ooops, something went wrong !";
@@ -954,15 +1215,31 @@ var KTFormsAudio = {
         });
 
         //translate voice
-        bvoicetranslate.addEventListener('click', e => {
-            e.preventDefault();
-            $('#div-voice-translate-result').css('display', 'block');
-        });
+        //bvoicetranslate.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    $('#div-voice-translate-result').css('display', 'block');
+        //});
 
         //translate desc
         bdesctranslate.addEventListener('click', e => {
             e.preventDefault();
-            $('#div-desc-translate-result').css('display', 'block');
+            $.ajax({
+                url: "/Transaction/TextTranslate",
+                type: 'POST',
+                data: { 'lan': $('#id_all_lang_desc').val(), 'ttt': $('#fraud').val() },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.success === 'true') {
+                        $('#div-desc-translate-result').css('display', 'block');
+                        //$("#div-voice-translate-result").removeClass("d-none");
+                        $('#desc_translate_result').val(result.data);
+                        //$("#div-button-voice-translate").addClass("d-none");
+                    } else {
+                        Swal.fire('Error', 'Translate Failed', 'error');
+                    }
+                }
+            });
+
         });
 
         function makeLink() {
@@ -1002,6 +1279,8 @@ $(document).ready(function () {
     KTFormsAudio.init();
 });
 
+var blockuiModal;
+
 function btnViewAction(e, action) {
     var rowId = e.parentNode.closest('tr').cells[1].innerText;
     const divImage = document.getElementById('kt_dropzonejs_example_1');
@@ -1012,6 +1291,13 @@ function btnViewAction(e, action) {
     $("#kt_modal_add_trx_form *").closest('.invalid-feedback').children().remove();
     KTProjectUsers._loc;
     var divImg = '';
+
+    //var target = document.querySelector("#kt_body");
+    //var blockuim = new KTBlockUI(target, {
+    //    message: '<div class="blockui-message"><span class="spinner-border text-primary"></span> Loading...</div>',
+    //});
+
+    blockUI.block();
     $.ajax({
         url: "/Transaction/GetDataByID",
         type: 'GET',
@@ -1026,17 +1312,26 @@ function btnViewAction(e, action) {
             var newOptionBus = $("<option selected='selected'></option>").val(result.data.code_bussiness_unit).text(result.data.bussiness_unit_name);
             $("#id_bussiness").append(newOptionBus).trigger('change');
 
-            document.querySelector('[name="created_date"]').value = result.data.created_date;
+            document.querySelector('[name="created_date"]').value = moment(result.data.created_date).format('YYYY-MM-DD');
             document.querySelector('[name="suspected"]').value = result.data.suspected;
             document.querySelector('[name="fraud"]').value = result.data.fraud;
             $('#code').val(result.data.code);
 
             if (action === 'view') {
-                $('#div-button-voice-translate').css('display', 'none');
-                $('#div-button-desc-translate').css('display', 'none');
+                //$('#div-button-voice-translate').css('display', 'none');
+                //$('#div-button-desc-translate').css('display', 'none');
+                $('#div-button-desc-translate').css('display', 'block');
+                $('#div-button-voice-translate').css('display', 'block');
                 $('#lbl-upload-image').css('display', 'none');
                 $('#div-recipient').css('display', 'none');
                 $('#div-notes').css('display', 'none');
+                $('#btn-approve').addClass("d-none");
+                $('#btn-reject').addClass("d-none");
+                $('#btn-submit').addClass("d-none");
+                document.getElementById('btn-voice-transalate').removeAttribute('disabled');
+                document.getElementById('btn-desc-transalate').removeAttribute('disabled');
+                document.getElementById('id_all_lang_desc').removeAttribute('disabled');
+                $("#div-button-voice-translate").removeClass("d-none");
             } else if (action == 'edit') {
                 $('#div-button-voice-translate').css('display', 'block');
                 $('#div-button-desc-translate').css('display', 'block');
@@ -1046,25 +1341,50 @@ function btnViewAction(e, action) {
                 document.getElementById('btn-voice-transalate').removeAttribute('disabled');
                 document.getElementById('btn-desc-transalate').removeAttribute('disabled');
                 document.getElementById('id_all_lang_desc').removeAttribute('disabled');
+                document.getElementById('id_all_lang_ttt').removeAttribute('disabled');
+                document.getElementById('btn-voice-transalate-ttt').removeAttribute('disabled');
                 //document.getElementById('id_all_lang_voice').removeAttribute('disabled');
                 document.getElementById('btn-reject').removeAttribute('disabled');
                 document.getElementById('btn-submit').removeAttribute('disabled');
                 document.getElementById('id_recipient').removeAttribute('disabled');
-                document.getElementById('justification_request_from_dispatcher').removeAttribute('disabled');
+                document.getElementById('hq_note_to_justificator').removeAttribute('disabled');
                 $('#div-recipient').css('display', 'block');
                 $('#div-notes').css('display', 'block');
                 $("#lbl-recipient").addClass("required");
                 $("#lbl-notes").addClass("required");
 
-                if ($('#hdn_user_static').val() == '2' && (result.data.id_status == '1' || result.data.id_status == '4')) {
+                if (result.data.id_status == '4' || result.data.id_status == '5') {
                     //.addClass("d-none");
                     //$('#btn-approve').css('display', 'none');
                     //$('#btn-reject').css('display', 'block');
+                    $('#btn-submit').addClass("d-none");
+                    $('#btn-approve').removeClass("d-none");
+                    $('#btn-reject').removeClass("d-none");
+                    document.getElementById('btn-approve').removeAttribute('disabled');
+                } else {
+                    $('#btn-approve').addClass("d-none");
+                    $('#btn-reject').addClass("d-none");
+                    $('#btn-submit').removeClass("d-none");
+                }
 
+                if (result.data.id_status == '1') {
+                    $('#div-recipient').removeClass("d-none");
+                    $('#div-notes').removeClass("d-none");
+                    $('#btn-submit').removeClass("d-none");
                     $('#btn-approve').addClass("d-none");
                     $('#btn-reject').removeClass("d-none");
-
+                } else {
+                    $('#div-recipient').addClass("d-none");
+                    $('#div-notes').addClass("d-none");
                 }
+
+                if (result.data.id_status == '3' || result.data.id_status == '4') {
+                    $('#div-feedback').removeClass("d-none");
+                    document.getElementById('hq_note_to_reporter').removeAttribute('disabled');
+                } else {
+                    $('#div-feedback').addClass("d-none");
+                }
+
 
                 if ($('#hdn_user_static').val() == '2' && result.data.status_id == '5') {
                     //$('#btn-approve').css('display', 'block');
@@ -1072,15 +1392,20 @@ function btnViewAction(e, action) {
                     $('#btn-approve').removeClass("d-none");
                     $('#btn-reject').addClass("d-none");
                 }
+                if ($('#hdn_user_static').val() == '1' && result.data.status_id == '8') {
+                    $('#btn-accepted').removeClass("d-none");
+                    $('#btn-notaccepted').removeClass("d-none");
+                }
             } else {
-                $('#kt_modal_timeline').modal(show);
+                blockUI.release();
+                $('#kt_modal_timeline').modal('show');
             }
 
             if (action != 'timeline') {
                 document.getElementById('btn-cancel').removeAttribute('disabled');
                 // dinamic create image
                 result.data.createTransDAttachmentDto.forEach(c => {
-                    divImg += "<div class='dz-preview dz-processing dz-image-preview dz-error dz-complete'><div class='dz-image'><img data-dz-thumbnail='' src='" + c + "'></div></div>";
+                    divImg += "<div class='dz-preview dz-processing dz-image-preview dz-error dz-complete'><div class='dz-image'><img style='width:100%' data-dz-thumbnail='' src='" + c + "'></div></div>";
                 });
 
                 $('#kt_dropzonejs_example_1').append(divImg);
@@ -1096,7 +1421,7 @@ function btnViewAction(e, action) {
                 li.appendChild(audio);
                 ul.appendChild(li);
                 // END AUDIO
-
+                blockUI.release();
                 $('#kt_modal_add_trx').modal('show');
             }
         },
@@ -1105,7 +1430,25 @@ function btnViewAction(e, action) {
             if (errorMessage === "" || errorMessage === undefined) {
                 errorMessage = "Ooops, something went wrong !";
             }
+            blockUI.release();
             Swal.fire('Error', errorMessage, 'error');
+        }
+    });
+}
+
+function btnViewTimeline(e) {
+    var rowId = e.parentNode.closest('tr').cells[1].innerText;
+    var vbody = '';
+    $.ajax({
+        url: "/Transaction/GetTimeline",
+        type: 'GET',
+        data: { 'Id': rowId },
+        dataType: 'json',
+        success: function (result) {
+            if (result.success === 'true') {
+
+                $('#kt_modal_timeline').modal('show');
+            }
         }
     });
 }
@@ -1124,19 +1467,20 @@ function wavePlayDetail(url) {
 }
 
 function voiceTransalate() {
-
+    var base64 = document.getElementsByTagName("audio")[0].currentSrc.replace(/^data:audio\/[a-z]+; base64,/, '');
+    //base64 = document.getElementsByTagName("audio")[0].currentSrc.replace(/^data:audio\/[a-z]+; base64,/, '');
     $.ajax({
         url: "/Transaction/VoiceTranslate",
         type: 'POST',
-        data: { 'base64Voice': document.getElementsByTagName("audio")[0].currentSrc, 'code': $('#code').val(), 'lan': 'en' },
+        data: { 'base64Voice': base64, 'code': $('#code').val(), 'lan': 'en' },
         dataType: 'json',
         success: function (result) {
             if (result.success === 'true') {
                 $("#div-voice-translate-result").removeClass("d-none");
-                $('#voice_translate_result').val(result.data.message);
+                $('#voice_translate_result').val(result.data.text_transcript);
                 $("#div-button-voice-translate").addClass("d-none");
-
-
+            } else {
+                Swal.fire('Error', 'Translate Failed', 'error');
             }
         }
     });
@@ -1150,9 +1494,9 @@ function textTransalate() {
         data: { 'lan': $('#id_all_lang_ttt').val(), 'ttt': $('#voice_translate_result').val() },
         dataType: 'json',
         success: function (result) {
-            if (result.data.success === 'true') {
+            if (result.success === 'true') {
                 $("#div-voice-result-ttt").removeClass("d-none");
-                $('#result_translate_ttt').val(result.data.message);
+                $('#result_translate_ttt').val(result.data);
             }
         }
     });
@@ -1178,7 +1522,10 @@ function AddNewAction() {
     $("#lbl-recipient").removeClass("required");
     $("#btn-reject").addClass("d-none");
     $("#lbl-notes").removeClass("required");
-    $('#btn-approve').css('display', 'none');
+    $("#div_language_code_stt").removeClass("d-none");
+
+    //$('#btn-approve').css('display', 'none');
+
     //$('#btn-reject').css('display', 'none');
     //document.getElementById('id_recipient').removeAttribute('name');
     //document.getElementById('notes').removeAttribute('name');
@@ -1188,6 +1535,11 @@ function AddNewAction() {
     //$('#id_recipient').rules('add', {
     //    required: false
     //});
+    if ($('#hdn_user_static').val() == '1') {
+        $('#div-recipient').css('display', 'block');
+        $('#div-notes').css('display', 'block');
+    }
+
     if (document.getElementById('ul').children.length > 0) { document.getElementById('ul').children[0].remove(); }
     //Date Format for .Requested  Date
     var today = new Date();
@@ -1203,9 +1555,10 @@ function AddNewAction() {
     }
     today = dd + '/' + mm + '/' + yyyy;
     $("#created_date").val(today);
-    //$("#id_location").select2("destroy");
-    //$("#id_bussiness").select2("destroy");
 }
 
+function cbxNeedFeedback(e) {
+
+}
 
 
